@@ -1,7 +1,33 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
+import { decorateSearch, createSearchSummary, displaySearchResults, isRequestInProgress, GENAI_SEARCH_TITLE } from './genai-search.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
+
+const loadScript = (url, callback, type, section, defer) => {
+  const head = document.querySelector('head');
+  const script = document.createElement('script');
+  script.src = url;
+  if (type) {
+    script.setAttribute('type', type);
+  }
+  if (defer && script.src) {
+    script.defer = defer;
+  }
+  if (section) section.append(script);
+  else head.append(script);
+  script.onload = callback;
+  return script;
+};
+loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
+  console.log("Marked.js loaded");
+});
+loadScript("https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js", () => {
+  console.log("Masonry.js loaded");
+});
+loadScript("https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js", () => {
+  console.log("ImagesLoaded.js loaded");
+});
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -109,6 +135,22 @@ export default async function decorate(block) {
       if (section) section.classList.add(`nav-${c}`);
     });
 
+    const navBrand = nav.querySelector('.nav-brand');
+
+    const xhrLogo = new XMLHttpRequest();
+    xhrLogo.open('GET', `${window.hlx.codeBasePath}/icons/ey_logo.svg`, true);
+    xhrLogo.onreadystatechange = function () {
+      if (xhrLogo.readyState === 4 && xhrLogo.status === 200) {
+        // On successful response, create and append the SVG element
+        const svgElement = document.createElement('svg');
+        svgElement.className = 'icon-logo';
+        svgElement.innerHTML = xhrLogo.responseText;
+        // navBrand.insertAdjacentHTML('afterend', svgElement.outerHTML);
+        navBrand.append(svgElement);
+      }
+    };
+    xhrLogo.send();
+
     const navSections = nav.querySelector('.nav-sections');
     if (navSections) {
       navSections.querySelectorAll(':scope > ul > li').forEach((navSection) => {
@@ -141,5 +183,104 @@ export default async function decorate(block) {
     navWrapper.className = 'nav-wrapper';
     navWrapper.append(nav);
     block.append(navWrapper);
+
+    // Function to toggle the modal
+    function toggleModal(navButton) {
+      const modal = document.getElementById('header-search-modal');
+      if (modal.style.display === "block") {
+        // Hide modal
+        modal.classList.remove('visible');
+        modal.removeAttribute('style');
+        document.body.style.overflowY = '';
+
+        // Clear search results
+        document.getElementById('clearButton').classList.remove("show");
+        document.getElementById('vertical-bar').classList.remove("show");
+
+        navButton.classList.remove('active');
+      } else {
+        modal.classList.add('visible');
+        modal.style.display = "block";
+        document.body.style.overflowY = 'hidden';
+
+        const searchBox = document.getElementById('search-box');
+        const stopButtonContainer = document.querySelector('.stop-button-container');
+        const regenerateButtonContainer = document.querySelector('.regenerate-button-container');
+        const resultsBlock = block.querySelector('.search-results');
+        
+        searchBox.value = '';
+        searchBox.focus();
+        stopButtonContainer.classList.remove('show');
+        regenerateButtonContainer.classList.remove('show');
+        resultsBlock.innerHTML = '';
+        resultsBlock.appendChild(createSearchSummary());
+
+        navButton.classList.add('active');
+      }
+    }
+
+    // decorate search
+    const createGenAISearch = () => {
+      const elem = document.getElementById('header-search-modal');
+      
+      if (!elem) {
+        const modal = document.createElement('div');
+        modal.className = 'header-search-modal';
+        modal.id = 'header-search-modal';
+        modal.append(decorateSearch());
+        block.append(modal);
+
+        const searchBox = document.getElementById('search-box');
+        const resultsBlock = block.querySelector('.search-results');
+        
+        searchBox.addEventListener('keypress', (event) => {
+          if (event.key === 'Enter') {
+            searchBox.blur();
+
+            const summaryContainer = resultsBlock.querySelector('.summary-columns');
+            if (!summaryContainer) {
+              resultsBlock.innerHTML = '';
+              const regenerateButtonContainer = document.querySelector('.regenerate-button-container');
+              regenerateButtonContainer.classList.remove('show');
+            }
+
+            displaySearchResults(searchBox.value, resultsBlock);
+          }
+        });
+
+        const searchButton = document.getElementById('search-button');
+        searchButton.addEventListener('click', () => {
+          const summaryContainer = resultsBlock.querySelector('.summary-columns');
+          if (!summaryContainer) {
+            resultsBlock.innerHTML = '';
+            const regenerateButtonContainer = document.querySelector('.regenerate-button-container');
+            regenerateButtonContainer.classList.remove('show');
+          }
+          displaySearchResults(searchBox.value, resultsBlock);
+        });
+
+        resultsBlock.addEventListener('click', (event) => {
+          if (event.target.matches('.search-card-button') && isRequestInProgress === false) {
+            console.log("Further questions clicked!");
+            block.querySelector('.genai-search-container').scrollIntoView({ behavior: 'smooth' });
+            searchBox.value = event.target.innerText;
+            resultsBlock.innerHTML = '';
+            const regenerateButtonContainer = document.querySelector('.regenerate-button-container');
+            regenerateButtonContainer.classList.remove('show');
+            displaySearchResults(event.target.innerText, resultsBlock);
+          }
+        });
+      }
+    };
+  
+    block.append(createGenAISearch());
+    
+    // click listener for search
+    const discoverEY = nav.querySelector('header nav .nav-tools p:first-child');
+    if (discoverEY) {
+      discoverEY.addEventListener('click', () => {
+        toggleModal(discoverEY);
+      });
+    }
   }
 }

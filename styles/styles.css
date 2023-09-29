@@ -10,17 +10,24 @@
  * governing permissions and limitations under the License.
  */
 
+ @import 'style-vars.css';
+
  :root {
   /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: #fff;
+  --brand-color: #ffe600;
+  --ey-color: #ffe600;
+  --parthenon-color: #1a9afa;
+  /* --link-color: #035fe6;
+  --link-hover-color: #136ff6; */
+  --link-color: var(--color-5-shade-10);
+  --link-hover-color: var(--color-5-shade-10);
+  --background-color: #2e2e38;
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
   --text-color: #000;
 
   /* fonts */
-  --body-font-family: roboto, roboto-fallback;
+  --body-font-family: EYInterstate, sans-serif;
   --heading-font-family: var(--body-font-family);
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
@@ -54,15 +61,15 @@
   :root {
     --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
-    --heading-font-size-l: 36px;
-    --heading-font-size-m: 30px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
+    --heading-font-size-l: 30px;
+    --heading-font-size-m: 24px;
+    --heading-font-size-s: 22px;
+    --heading-font-size-xs: 20px;
   }
 }
 
 body {
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-s);
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.6;
@@ -161,7 +168,7 @@ a.button:any-link, button {
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
-  background-color: var(--link-hover-color);
+  background-color: var(--color-3-tint-5);
   cursor: pointer;
 }
 
@@ -217,6 +224,18 @@ main img {
   height: auto;
 }
 
+/* Define the background image for the main tag */
+main {
+  background-image: url('./backgrounds/ey-background-image.png'); /* Replace with the path to your image */
+  background-size: cover; /* Adjust as needed */
+  background-position: center; /* Adjust as needed */
+  background-repeat: no-repeat;
+  /* Other background properties can be added as needed */
+  
+  /* Set the height to ensure the background image covers the entire main tag */
+  min-height: 100vh; /* Adjust as needed */
+}
+
 .icon {
   display: inline-block;
   height: 24px;
@@ -247,5 +266,5 @@ main .section {
 
 /* section metadata */
 main .section.highlight {
-  background-color: var(--highlight-background-color);
+  /* background-color: var(--highlight-background-color); */
 }
