@@ -231,6 +231,7 @@ export default async function decorate(block) {
         block.append(modal);
 
         const searchBox = document.getElementById('search-box');
+        const searchBoxContainer = document.querySelector('.search-box-container');
         const resultsBlock = block.querySelector('.search-results');
         
         searchBox.addEventListener('keypress', (event) => {
@@ -246,6 +247,14 @@ export default async function decorate(block) {
 
             displaySearchResults(searchBox.value, resultsBlock);
           }
+        });
+
+        searchBox.addEventListener('focus', () => {
+          searchBoxContainer.classList.add('focused');
+        });
+
+        searchBox.addEventListener('blur', () => {
+          searchBoxContainer.classList.remove('focused');
         });
 
         const searchButton = document.getElementById('search-button');

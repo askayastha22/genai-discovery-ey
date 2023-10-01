@@ -186,7 +186,7 @@ const decorateSearch = () => {
 
   // Create the search box <div> element
   const searchBoxDivElement = document.createElement('div');
-  searchBoxDivElement.setAttribute('class', 'search-box');
+  searchBoxDivElement.setAttribute('class', 'search-box-container');
 
   // Create the search input <input> element with id and placeholder attributes
   const searchInput = document.createElement('input');
