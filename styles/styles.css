@@ -227,13 +227,10 @@ main img {
 /* Define the background image for the main tag */
 main {
   background-image: url('./backgrounds/ey-background-image.png'); /* Replace with the path to your image */
-  background-size: cover; /* Adjust as needed */
-  background-position: center; /* Adjust as needed */
+  background-size: cover;
+  background-position: left top;
   background-repeat: no-repeat;
-  /* Other background properties can be added as needed */
-  
-  /* Set the height to ensure the background image covers the entire main tag */
-  min-height: 100vh; /* Adjust as needed */
+  min-height: 100vh;
 }
 
 .icon {
