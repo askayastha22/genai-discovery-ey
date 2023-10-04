@@ -2,24 +2,31 @@ const GENAI_SEARCH_TITLE = "Discover EY";
 const GENAI_SEARCH_WARNING = `${GENAI_SEARCH_TITLE} is powered by experimental Generative AI, information quality may vary.`;
 
 const sampleQuestions = [
-  "Why Does One of My Cats Jump on the Other's Back and Bite His Neck?",
-  "Why Dog Urine Odor Comes Back and How to Stop It",
-  "When Is a Dog Considered an Adult?",
-  "Can an Alaskan Malamute or Siberian Husky Puppy Play Nice with the Family Cat?",
-  "Do Clavamox Antibiotic Drops Expire?",
-  "Is It Dangerous for Dogs to Drink Pool Water?",
-  "Can an Outdoor Cat Become an Indoor Cat?",
-  "Cat Stress After Moving",
-  "Is Eating Mice and Rabbits Healthy for My Cat?",
-  "What Happens When Cat Food Expires?",
-  "Does Your Puppy Need a Bordetella Vaccine?",
-  "How Much Should I Feed My Puppy?",
-  "Tips on Housetraining and Dealing with Accidents",
-  "Should a Pet Be Off Antihistamines or Steroid Before Allergy Testing?",
-  "My cat was recently spayed but the male cats still want to mate with her",
-  "Should You Board Your Cat or Get a Sitter?",
-  "Is Your Dog Smarter Than a 5th Grader?",
-  "How Long Can a Pet Be Overdue for a Rabies Vaccine and Still Be Protected?"
+  "What are the main issues identified by field testers?",
+  "Why is the annual remeasurement of fair values for financial assets and liabilities problematic?",
+  "Why is the annual remeasurement of residual values for property, plant, and equipment problematic?",
+  "What problems were noted by field test entities regarding disclosures?",
+  "Why do some entities feel uncomfortable providing certain disclosures, such as key management personnel compensation?",
+  "What is the nature, volume, and complexity of disclosures that field test entities are required to provide?",
+  "What solutions are proposed to address these issues identified by field testers?",
+  "What are the areas for possible simplification of recognition and measurement principles for SMEs?",
+  "From your experience, please indicate which topics addressed in IFRSs might be omitted from SME standards because they are unlikely to occur in an SME context?",
+  "If certain topics occur in an SME context, how should the SME determine its appropriate accounting policy?",
+  "What information is needed to assess possible recognition and measurement simplifications?",
+  "What are the recognition and measurement principles in IFRSs for use in an IFRS for SMEs?",
+  "What issues should be discussed at the round-table meetings with preparers and users of the financial statements of SMEs?",
+  "How can the IASB better support SMEs in applying IFRSs?",
+  "What are the fundamental qualitative characteristics of useful financial information?",
+  "How does information become relevant and provide a faithful representation of what it purports to represent?",
+  "What is the most efficient and effective process for applying the fundamental qualitative characteristics?",
+  "How do you identify an economic phenomenon that is capable of being useful to users of the reporting entity’s financial information?",
+  "How do you determine the type of information about an economic phenomenon that would be most relevant?",
+  "How do you determine whether the identified information can provide a faithful representation of the economic phenomenon?",
+  "What happens if the identified information cannot provide a faithful representation of the economic phenomenon?",
+  "How do the enhancing characteristics and the cost constraint affect the process of applying the fundamental qualitative characteristics?",
+  "What are requests for information in the context of the Board's technical projects or broader consultations?",
+  "What are the appropriate topics for a request for information?",
+  "What is the process for the publication of discussion papers, requests for information, and research papers?"
 ]
 
 const capabilities = [
@@ -593,7 +600,7 @@ async function displaySearchResults(query, resultsBlock) {
   const firstChild = resultsBlock.firstChild;
   resultsBlock.insertBefore(loadingMessage, firstChild);
 
-  const results = await fetchStreamingResults('petplace4', query, resultsBlock);
+  const results = await fetchStreamingResults('ey', query, resultsBlock);
   isRequestInProgress = false;
   
   // Assuming the response has a `result` property
