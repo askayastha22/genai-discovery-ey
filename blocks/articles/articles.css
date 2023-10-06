@@ -1,0 +1,20 @@
+main {
+  background-image: unset;
+  background-color: var(--body-background-color);
+}
+
+main .articles h1 {
+  font-size: var(--heading-font-size-l)
+}
+
+main .articles h2 {
+  font-size: var(--heading-font-size-m);
+}
+
+main .articles h3 {
+  font-size: var(--heading-font-size-s);
+}
+
+main .articles h4 {
+  font-size: var(--heading-font-size-xs);
+}

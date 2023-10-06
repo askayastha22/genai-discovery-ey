@@ -361,6 +361,9 @@ const updateStreamingSearchCard = (resultsBlock, response, socket) => {
   const anchorTags = card?.querySelectorAll('a');
 
   anchorTags?.forEach((anchorTag) => {
+    // Replace the url in the href attribute
+    const url = anchorTag.getAttribute('href');
+    anchorTag.setAttribute('href', `/articles?id=${url.replace('.xml', '')}`);
     anchorTag.setAttribute('target', '_blank');
   });
 
@@ -460,11 +463,11 @@ const createLinksCard = (results) => {
     const linkInfoElement = document.createElement('div');
     linkInfoElement.className = 'link-info';
 
-    linkInfoElement.innerHTML = `<a href="https://${API_ENDPOINT}/${link.url}" target="_blank">${link.name}</a>`;
+    linkInfoElement.innerHTML = `<a href="/articles?id=${link.url.replace('.xml', '')}" target="_blank">${link.name}</a>`;
     
     listItem.appendChild(linkInfoElement);
     listItem.addEventListener('click', () => {
-      window.open(`https://${API_ENDPOINT}/${link.url}`, '_blank');
+      window.open(`/articles?id=${link.url.replace('.xml', '')}`, '_blank');
     });
     list.appendChild(listItem);
   })
@@ -610,4 +613,4 @@ async function displaySearchResults(query, resultsBlock) {
   // }, 100);
 }
 
-export { decorateSearch, createSearchSummary, displaySearchResults, isRequestInProgress, GENAI_SEARCH_TITLE };
+export { decorateSearch, createSearchSummary, displaySearchResults, isRequestInProgress, GENAI_SEARCH_TITLE, API_ENDPOINT };
