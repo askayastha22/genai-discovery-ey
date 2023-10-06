@@ -2,32 +2,19 @@ const GENAI_SEARCH_TITLE = "Discover EY";
 const GENAI_SEARCH_WARNING = `${GENAI_SEARCH_TITLE} is powered by experimental Generative AI, information quality may vary.`;
 
 const sampleQuestions = [
-  "What are the main issues identified by field testers?",
-  "Why is the annual remeasurement of fair values for financial assets and liabilities problematic?",
-  "Why is the annual remeasurement of residual values for property, plant, and equipment problematic?",
-  "What problems were noted by field test entities regarding disclosures?",
-  "Why do some entities feel uncomfortable providing certain disclosures, such as key management personnel compensation?",
-  "What is the nature, volume, and complexity of disclosures that field test entities are required to provide?",
-  "What solutions are proposed to address these issues identified by field testers?",
-  "What are the areas for possible simplification of recognition and measurement principles for SMEs?",
-  "From your experience, please indicate which topics addressed in IFRSs might be omitted from SME standards because they are unlikely to occur in an SME context?",
-  "If certain topics occur in an SME context, how should the SME determine its appropriate accounting policy?",
-  "What information is needed to assess possible recognition and measurement simplifications?",
-  "What are the recognition and measurement principles in IFRSs for use in an IFRS for SMEs?",
-  "What issues should be discussed at the round-table meetings with preparers and users of the financial statements of SMEs?",
-  "How can the IASB better support SMEs in applying IFRSs?",
-  "What are the fundamental qualitative characteristics of useful financial information?",
-  "How does information become relevant and provide a faithful representation of what it purports to represent?",
-  "What is the most efficient and effective process for applying the fundamental qualitative characteristics?",
-  "How do you identify an economic phenomenon that is capable of being useful to users of the reporting entity’s financial information?",
-  "How do you determine the type of information about an economic phenomenon that would be most relevant?",
-  "How do you determine whether the identified information can provide a faithful representation of the economic phenomenon?",
-  "What happens if the identified information cannot provide a faithful representation of the economic phenomenon?",
-  "How do the enhancing characteristics and the cost constraint affect the process of applying the fundamental qualitative characteristics?",
-  "What are requests for information in the context of the Board's technical projects or broader consultations?",
-  "What are the appropriate topics for a request for information?",
-  "What is the process for the publication of discussion papers, requests for information, and research papers?"
-]
+  "What is the primary purpose of IFRS?",
+  "How is IFRS different from generally accepted accounting principles (GAAP)?",
+  "How does the adoption of IFRS impact a company's financial statements?",
+  "Can a company use IFRS for some financial statements and US GAAP for others?",
+  "How does IFRS differ from other accounting standards, such as GAAP?",
+  "Can you explain the concept of other comprehensive income (OCI) and how it is presented in the financial statements under IFRS?",
+  "Can you describe the purpose of the IFRS conceptual framework?",
+  "Can you explain the fundamental qualitative characteristics of financial information according to the IFRS conceptual framework?",
+  "How does the IFRS conceptual framework address the conceptual overlap between different financial reporting standards?",
+  "Can you explain the concept of materiality in the context of financial reporting?",
+  "Can you describe the principle of substance over form in the context of financial reporting?",
+  "Can you explain the going concern concept in the context of financial reporting?"
+];
 
 const capabilities = [
   "Uses semantic search to find relevant answers",
