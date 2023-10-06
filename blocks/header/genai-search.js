@@ -1,5 +1,6 @@
 const GENAI_SEARCH_TITLE = "Discover EY";
 const GENAI_SEARCH_WARNING = `${GENAI_SEARCH_TITLE} is powered by experimental Generative AI, information quality may vary.`;
+const API_ENDPOINT = "spire-dev.corp.ethos14-stage-va7.ethos.adobe.net";
 
 const sampleQuestions = [
   "What is the primary purpose of IFRS?",
@@ -62,7 +63,7 @@ const fetchStreamingResults = async (index, query, resultsBlock) => {
   }
 
   // Adobe Internal Endpoint
-  const socket = new WebSocket('wss://spire-dev.corp.ethos14-stage-va7.ethos.adobe.net/api/query');
+  const socket = new WebSocket(`wss://${API_ENDPOINT}/api/query`);
   
   // BambooHR Endpoint
   // const socket = new WebSocket('wss://spire-bhr-temp-pub.ethos14-stage-va7.ethos.adobe.net/api/query');
@@ -448,23 +449,22 @@ const createLinksCard = (results) => {
 
   results.links?.forEach((link) => {
     const listItem = document.createElement("li");
-    const thumbnailElement = document.createElement('img');
-    thumbnailElement.src = link.thumbnail;
-    thumbnailElement.alt = link.name;
-    listItem.appendChild(thumbnailElement);
+
+    if (link.thumbnail !== '') {
+      const thumbnailElement = document.createElement('img');
+      thumbnailElement.src = link.thumbnail;
+      thumbnailElement.alt = link.name;
+      listItem.appendChild(thumbnailElement);
+    }
 
     const linkInfoElement = document.createElement('div');
     linkInfoElement.className = 'link-info';
 
-    if (link.name === link.description) {
-      linkInfoElement.innerHTML = `<a href="${link.url}" target="_blank">${link.name}</a>`;
-    } else {
-      linkInfoElement.innerHTML = `<a href="${link.url}" target="_blank">${link.name}</a><p>${link.description}</p>`;
-    }
+    linkInfoElement.innerHTML = `<a href="https://${API_ENDPOINT}/${link.url}" target="_blank">${link.name}</a>`;
     
     listItem.appendChild(linkInfoElement);
     listItem.addEventListener('click', () => {
-      window.open(link.url, '_blank');
+      window.open(`https://${API_ENDPOINT}/${link.url}`, '_blank');
     });
     list.appendChild(listItem);
   })

@@ -838,6 +838,7 @@ article ul, article ol {
   cursor: pointer;
   margin-bottom: 40px;
   padding-left: 0;
+  width: 350px;
 }
 
 @media screen and (max-width: 375px) {
