@@ -136,6 +136,8 @@ export default async function decorate(block) {
     });
 
     const navBrand = nav.querySelector('.nav-brand');
+    navBrand.innerHTML = '<a href="/"></a>';
+    const navBrandLink = navBrand.querySelector('a');
 
     const xhrLogo = new XMLHttpRequest();
     xhrLogo.open('GET', `${window.hlx.codeBasePath}/icons/ey_logo.svg`, true);
@@ -145,8 +147,7 @@ export default async function decorate(block) {
         const svgElement = document.createElement('svg');
         svgElement.className = 'icon-logo';
         svgElement.innerHTML = xhrLogo.responseText;
-        // navBrand.insertAdjacentHTML('afterend', svgElement.outerHTML);
-        navBrand.append(svgElement);
+        navBrandLink.append(svgElement);
       }
     };
     xhrLogo.send();
