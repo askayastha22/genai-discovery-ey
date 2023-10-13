@@ -5,6 +5,8 @@ import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
+  let styles = ['logo', 'links', 'brand'];
+
   const cfg = readBlockConfig(block);
   block.textContent = '';
 
@@ -18,6 +20,12 @@ export default async function decorate(block) {
     // decorate footer DOM
     const footer = document.createElement('div');
     footer.innerHTML = html;
+
+    styles.forEach((style, i) => {
+      if (footer.children[i]) {
+        footer.children[i].classList.add(style);
+      }
+    });
 
     decorateIcons(footer);
     block.append(footer);

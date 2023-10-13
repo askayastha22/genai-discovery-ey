@@ -1,14 +1,72 @@
 footer {
   padding: 2rem;
-  background-color: var(--overlay-background-color);
+  background-color: #fff;
   font-size: var(--body-font-size-s);
 }
 
 footer .footer {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: auto;
+}
+
+footer .footer > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+footer .footer .logo {
+  flex: 1;
+}
+
+footer .footer .links {
+  width: 80%;
+  font-size: 1rem;
+}
+
+footer .footer .links > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+footer .footer .links a {
+  border-bottom: 1px solid;
+  color: #2e2e38;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+footer .footer .links a:hover {
+  border-bottom: 2px solid;
+}
+
+footer .footer .brand {
+  width: 100%;
+  font-size: 0.9rem;
+  color: #747480;
+  line-height: 1.43;
+  margin-top: 30px;
+}
+
+@media (min-width: 900px) {
+  footer .footer .brand {
+    width: 60%;
+  }
+}
+
+@media (max-width: 900px) {
+  footer .footer .links > ul {
+    display: block;
+  }
 }
 
 footer .footer p {
   margin: 0;
+}
+
+.icon-ey_digital_brand {
+  width: 86px;
+  height: 100px;
 }
