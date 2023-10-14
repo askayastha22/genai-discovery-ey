@@ -172,7 +172,14 @@ export default async function decorate(block) {
     hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
         <span class="nav-hamburger-icon"></span>
       </button>`;
-    hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+    // hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+    hamburger.addEventListener('click', () => {
+      if (document.getElementById('header-search-modal').style.display === "block") {
+        toggleModal(discoverEY);
+      }
+      
+      toggleMenu(nav, navSections);
+    });
     nav.prepend(hamburger);
     nav.setAttribute('aria-expanded', 'false');
     // prevent mobile nav behavior on window resize
@@ -210,7 +217,11 @@ export default async function decorate(block) {
         const resultsBlock = block.querySelector('.search-results');
         
         searchBox.value = '';
-        searchBox.focus();
+
+        if (isDesktop.matches) {
+          searchBox.focus();
+        }
+        
         stopButtonContainer.classList.remove('show');
         regenerateButtonContainer.classList.remove('show');
         resultsBlock.innerHTML = '';
@@ -289,6 +300,9 @@ export default async function decorate(block) {
     const discoverEY = nav.querySelector('header nav .nav-tools p:first-child');
     if (discoverEY) {
       discoverEY.addEventListener('click', () => {
+        if (!isDesktop.matches) {
+          toggleMenu(nav, navSections, false);
+        }
         toggleModal(discoverEY);
       });
     }

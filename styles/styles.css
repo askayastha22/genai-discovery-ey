@@ -35,6 +35,7 @@
   --body-font-size-m: 22px;
   --body-font-size-s: 18px;
   --body-font-size-xs: 16px;
+  --body-font-size-xxs: 14px;
 
   /* heading sizes */
   --heading-font-size-xxl: 48px;
@@ -45,7 +46,7 @@
   --heading-font-size-xs: 18px;
 
   /* nav height */
-  --nav-height: 64px;
+  --nav-height: 75px;
 
 }
 

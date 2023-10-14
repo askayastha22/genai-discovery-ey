@@ -5,15 +5,14 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
-  /* height: 85px; */
 }
 
 header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools' var(--nav-height)
-    'sections sections sections' 1fr / auto 1fr auto;
+    'brand tools hamburger ' var(--nav-height)
+    'sections sections sections' 1fr / 1fr auto auto;
   align-items: center;
   gap: 0 2em;
   margin: auto;
@@ -21,15 +20,29 @@ header nav {
   height: var(--nav-height);
   padding: 0 1rem;
   font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xxs);
+  font-weight: 500;
 }
 
 header nav[aria-expanded="true"] {
   grid-template:
-    'hamburger brand' var(--nav-height)
+    /* 'hamburger brand' var(--nav-height)
     'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr;
+    'tools tools' var(--nav-height) / auto 1fr; */
+    'brand tools hamburger' var(--nav-height)
+    'sections sections sections' 1fr / 1fr auto auto;
   overflow-y: auto;
   min-height: 100vh;
+}
+
+header nav[aria-expanded="false"] .nav-tools p:not(:first-child) {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  header nav[aria-expanded="true"] .nav-tools p:not(:first-child) {
+    display: none;
+  }
 }
 
 @media (min-width: 600px) {
@@ -149,12 +162,12 @@ header .nav-brand {
   line-height: 1;
 }
 
-header .nav-brand p {
-  display: none;
-}
-
 header .nav-brand .icon-logo svg {
   fill: #fff;
+}
+
+header .nav-brand .icon-logo svg .ey-logo-yellow {
+  fill: #ffe600;
 }
 
 header nav .nav-brand img {
@@ -172,7 +185,7 @@ header nav .nav-sections {
 }
 
 header nav[aria-expanded="true"] .nav-sections {
-  display: flex;
+  display: block;
   visibility: visible;
   align-self: start;
 }
@@ -180,11 +193,15 @@ header nav[aria-expanded="true"] .nav-sections {
 header nav .nav-sections ul  {
   list-style: none;
   padding-left: 0;
-  font-size: var(--body-font-size-s);
-  font-weight: 500;
 }
 
-header nav .nav-sections ul > li {
+header nav .nav-sections li[aria-expanded="true"] {
+  font-size: var(--heading-font-size-m);
+  padding: 18px 0;
+  border-bottom: 1px solid #747480;
+}
+
+/* header nav .nav-sections ul > li {
   font-weight: 700;
 }
 
@@ -194,15 +211,13 @@ header nav .nav-sections ul > li > ul {
 
 header nav .nav-sections ul > li > ul > li {
   font-weight: 500;
-}
+} */
 
 @media (min-width: 900px) {
   header nav .nav-sections {
     display: block;
     visibility: visible;
     white-space: nowrap;
-    justify-content: flex-start;
-    margin-left: 50px;
   }
 
   header nav[aria-expanded="true"] .nav-sections {
@@ -239,7 +254,6 @@ header nav .nav-sections ul > li > ul > li {
     display: flex;
     gap: 2em;
     margin: 0;
-    font-size: var(--body-font-size-xs);
   }
 
   header nav .nav-sections > ul > li {
@@ -281,7 +295,11 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* tools */
+/* prev tools */
+/* header nav .nav-tools {
+  grid-area: tools;
+} */
+
 header nav .nav-tools {
   grid-area: tools;
   display: flex;
@@ -294,7 +312,7 @@ header nav .nav-tools p {
   display: flex;
   gap: 8px;
   white-space: nowrap;
-  font-size: 14px;
+  /* font-size: 14px; */
   align-items: center;
   position: relative;
   height: 100%;
@@ -320,58 +338,11 @@ header nav .nav-tools p:first-child.active::after {
   opacity: 1;
 }
 
-.nav-wrapper nav {
-  display: flex;
-  padding: 0 1rem;
-  height: var(--nav-height);
-  flex-direction: row-reverse;
-  gap: 0 1rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-wrapper p {
-  margin: 0;
-}
-
-.nav-hamburger {
-  flex: 0;
-}
-
-.nav-hamburger button {
-  padding: 0;
-  margin: 0;
-  border: none;
-  border-radius: 0;
-  background: none;
-}
-
-.nav-hamburger .icon-hamburger {
-  height: 25px;
-  width: 25px;
-  fill: var(--highlight-color);
-}
-
-.nav-brand {
-  flex: 0;
-}
-
-.nav-brand .icon-logo {
-  height: 32px;
-  width: 170px;
-}
-
-.nav-sections {
-  display: none;
-}
-
-.nav-tools {
-  display: none;
-}
-
-.icon-logo {
-  height: 70px;
-  width: 190px;
+/* discover modal */
+.nav-brand svg {
+  display: block;
+  height: 45px;
+  width: auto;
 }
 
 .genai-search-container .default-content-wrapper {
@@ -581,122 +552,6 @@ grid-gap: 32px;
 @media (max-width: 1024px) {
   .header-search {
     right: 50px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .nav-wrapper nav {
-    margin: 0 auto;
-    max-width: 1344px;
-    flex-direction: row;
-    justify-content: start;
-  }
-
-  .nav-brand .icon-logo {
-    height: 38px;
-    width: 200px;
-  }
-
-  .nav-sections {
-    display: unset;
-    width:  100%;
-  }
-
-  .nav-sections ul {
-    display: flex;
-    padding: 0;
-    gap: 0 10px;
-    justify-content: end;
-    list-style: none;
-  }
-
-  .nav-sections li {
-    margin: 0;
-    padding: 0;
-    font-size: 15px;
-  }
-
-  .nav-sections a {
-    color: var(--color-gray-dark);
-    text-decoration: none;
-  }
-  
-  .nav-sections a:is(:focus, :hover) {
-    color: var(--color-blue);
-    text-decoration: none;
-  }
-}
-
-@media (min-width: 1200px) {
-  .nav-tools {
-    display: unset;
-  }
-
-  .nav-tools form {
-    position: relative;
-  }
-
-  .nav-tools form::after {
-    position: absolute;
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
-    top: 10px;
-    right: 10px;
-    background: var(--background-color);
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-mask: center / contain no-repeat url('../../icons/search.svg');
-    mask: center / contain no-repeat url('../../icons/search.svg');
-  }
-
-  .nav-tools input {
-    height: 40px;
-    width: 214px;
-    padding-left: 20px;
-    padding-right: 40px;
-    background: var(--highlight-color);
-    border: none;
-    border-radius: 50px;
-    color: white;
-    font-size: 15px;
-  }
-
-  .nav-tools input::placeholder {
-    color: white;
-  }
-
-  .nav-tools input::-webkit-search-cancel-button {
-    appearance: none;
-    width: .75rem;
-    height: .75rem;
-    background: var(--text-color-inverted);
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-mask: url('../../icons/close.svg') no-repeat;
-    mask: url('../../icons/close.svg') no-repeat;
-  }
-
-  .home-page .nav-tools {
-    display: none;
-  }
-
-  .home-page .nav-sections ul {
-    gap: 0 20px;
-  }
-
-  .home-page .nav-sections li {
-    font-size: 1rem;
-  }
-}
-
-@media (min-width: 1400px) {
-  .nav-sections ul {
-    gap: 0 20px;
-  }
-
-  .nav-sections li {
-    /* font-size: 1rem; */
-    font-size: 14px;
   }
 }
 
