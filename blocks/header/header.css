@@ -18,7 +18,7 @@ header nav {
   margin: auto;
   max-width: 1264px;
   height: var(--nav-height);
-  padding: 0 1rem;
+  padding: 0 18px;
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-xxs);
   font-weight: 500;
@@ -26,9 +26,6 @@ header nav {
 
 header nav[aria-expanded="true"] {
   grid-template:
-    /* 'hamburger brand' var(--nav-height)
-    'sections sections' 1fr
-    'tools tools' var(--nav-height) / auto 1fr; */
     'brand tools hamburger' var(--nav-height)
     'sections sections sections' 1fr / 1fr auto auto;
   overflow-y: auto;
@@ -60,6 +57,7 @@ header nav[aria-expanded="false"] .nav-tools p:not(:first-child) {
   header nav[aria-expanded="true"] {
     min-height: 0;
     overflow: visible;
+    max-width: 1920px;
   }
 }
 
