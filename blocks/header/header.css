@@ -295,6 +295,12 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
+@media (hover: hover) {
+  header nav .nav-tools p:first-child:hover::after {
+    opacity: 1;
+  }
+}
+
 /* prev tools */
 /* header nav .nav-tools {
   grid-area: tools;
