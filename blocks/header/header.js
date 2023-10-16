@@ -306,5 +306,20 @@ export default async function decorate(block) {
         toggleModal(discoverEY);
       });
     }
+
+    nav.addEventListener('click', (event) => {
+      // Define the selectors you want to exclude
+      const excludedSelectors = ['header nav .nav-tools p:first-child', 'header nav .nav-brand', 'header nav .nav-sections li', 'header nav .nav-tools'];
+
+      // Check if the clicked element or any of its parents match any of the excluded selectors
+      if (!excludedSelectors.some(selector => {
+        return event.target.matches(selector) || event.target.closest(selector);
+      })) {
+        // Hide the modal if it is visible
+        if (document.getElementById('header-search-modal').style.display === "block") {
+          toggleModal(discoverEY);
+        }
+      }
+    });
   }
 }
